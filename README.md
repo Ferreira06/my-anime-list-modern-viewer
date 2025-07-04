@@ -50,7 +50,7 @@ The easiest and recommended way to run this application is with Docker. This ens
     ```
 
 5.  **Done!** The application is now running. You can access it in your web browser by navigating to:
-    **[http://localhost:3000](http://localhost:3000)**
+    **[http://localhost:8545](http://localhost:8545)**
 
 ---
 

@@ -88,7 +88,7 @@ export async function PUT(request: Request) {
     // This makes sure the image is downloaded to public/anime-covers/
     const internalApiUrl = process.env.NODE_ENV === 'production'
       ? `/api/anime-covers?title=${encodeURIComponent(title)}&id=${id}`
-      : `http://localhost:3000/api/anime-covers?title=${encodeURIComponent(title)}&id=${id}`;
+      : `http://localhost:8545/api/anime-covers?title=${encodeURIComponent(title)}&id=${id}`;
 
     console.log(`[db API - PUT] Calling internal /api/anime-covers for "${title}"`);
     const coverResponse = await fetch(internalApiUrl);

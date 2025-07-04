@@ -61,7 +61,7 @@ export default function AddSortDialog({ open, onClose, onAddSort, existingSortNa
       <DialogTitle>Add New Custom Sort</DialogTitle>
       <DialogContent>
         <DialogContentText sx={{mb: 2}}>
-          Enter a name for your new sort order. You'll be able to arrange anime by dragging and dropping when this sort is active.
+            Enter a name for your new sort order. You&apos;ll be able to arrange anime by dragging and dropping when this sort is active.
         </DialogContentText>
         <TextField
           autoFocus

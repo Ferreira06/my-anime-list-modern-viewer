@@ -8,7 +8,7 @@ services:
     container_name: my-anime-list
     # Map port 3000 on your computer to port 3000 in the container
     ports:
-      - "3000:3000"
+      - "8545:3000"
     # Mount the 'data' and 'public/anime-covers' directories from your computer
     # into the container. This is VERY IMPORTANT for data persistence.
     volumes:

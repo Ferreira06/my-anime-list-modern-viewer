@@ -81,9 +81,9 @@ export async function GET(request: Request) {
   try {
     await fs.mkdir(coversPath, { recursive: true });
     console.log(`[anime-covers API] Ensured directory exists: ${coversPath}`);
-  } catch (error: any) {
-    console.error(`[anime-covers API] Error creating directory ${coversPath}:`, error.message, error.stack);
-    return NextResponse.json({ error: `Server error: Could not create image directory. Details: ${error.message}` }, { status: 500 });
+  } catch (error: unknown) {
+    console.error(`[anime-covers API] Error creating directory ${coversPath}:`, (error as Error).message, (error as Error).stack);
+    return NextResponse.json({ error: `Server error: Could not create image directory. Details: ${(error as Error).message}` }, { status: 500 });
   }
 
   const baseFilename = title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
@@ -103,7 +103,7 @@ export async function GET(request: Request) {
       console.log(`[anime-covers API] Image for "${title}" already exists locally: ${relativePath}`);
       return NextResponse.json({ coverImage: relativePath }, { status: 200 });
     }
-  } catch (error) {
+  } catch {
     // Directory might not exist or other FS error, but we'll try to create it later if needed.
     // Continue to fetch if access fails.
     console.log(`[anime-covers API] Initial local image check for "${title}" failed or file not found.`);
@@ -174,15 +174,15 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ coverImage: relativePath }, { status: 200 });
 
-  } catch (error: any) {
-    console.error(`[anime-covers API] Fatal error in GET handler for "${title}":`, error.message, error.stack);
+  } catch (error: unknown) {
+    console.error(`[anime-covers API] Fatal error in GET handler for "${title}":`, (error as Error).message, (error as Error).stack);
     // Determine status based on error type
     let statusCode = 500;
-    if (error.message.includes("Jikan API error: 429")) {
+    if ((error as Error).message.includes("Jikan API error: 429")) {
         statusCode = 429; // Specifically return 429 if Jikan rate-limited us
-    } else if (error.message.includes("Jikan API error:") || error.message.includes("Failed to download image:")) {
+    } else if ((error as Error).message.includes("Jikan API error:") || (error as Error).message.includes("Failed to download image:")) {
         statusCode = 502; // Bad Gateway for upstream errors
     }
-    return NextResponse.json({ error: `Internal server error: ${error.message}` }, { status: statusCode });
+    return NextResponse.json({ error: `Internal server error: ${(error as Error).message}` }, { status: statusCode });
   }
 }

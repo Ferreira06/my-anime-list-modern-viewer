@@ -1,6 +1,6 @@
 // app/components/AnimeListSkeleton.tsx
 import React from 'react';
-import { Paper, Box, Skeleton, Grid } from '@mui/material';
+import { Paper, Box, Skeleton } from '@mui/material';
 
 const SkeletonCard = () => (
     <Paper elevation={1} sx={{ display: 'flex', p: 2, mb: 2, alignItems: 'center' }}>

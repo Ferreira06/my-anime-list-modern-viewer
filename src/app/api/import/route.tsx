@@ -83,8 +83,8 @@ export async function POST(request: Request) {
     
     return NextResponse.json({ message });
 
-  } catch (error: any) {
-    console.error('[API /import POST] An error occurred:', error.message);
+  } catch (error: unknown) {
+    console.error('[API /import POST] An error occurred:', (error as Error).message);
     return NextResponse.json({ error: 'Failed to process XML file.' }, { status: 500 });
   }
 }

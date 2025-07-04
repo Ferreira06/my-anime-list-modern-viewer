@@ -1,23 +1,5 @@
 import { NextResponse } from 'next/server';
-import { join, dirname } from 'path';
-import { promises as fs } from 'fs';
-import { Low } from 'lowdb';
-import { JSONFile } from 'lowdb/node';
-import { Anime, AnimeOrders, getBaseAnimeData } from '@/app/data/anime';
 import { getDb } from '@/app/api/db/route.helper'; // Import the helper function to get the DB instance
-// NO import from '@/app/lib/jikan' here, as this route will call /api/anime-covers directly
-
-// Define the structure of your LowDB database
-interface MyDB {
-  animeList: Anime[];
-  animeOrders: AnimeOrders;
-}
-
-const dbFilePath = join(process.cwd(), 'data', 'db.json');
-const dbDir = dirname(dbFilePath);
-
-let dbInstance: Low<MyDB> | null = null;
-
 
 
 // Handler for fetching data (GET request)
@@ -28,8 +10,8 @@ export async function GET() {
       animeList: db.data?.animeList || [],
       animeOrders: db.data?.animeOrders || {},
     });
-  } catch (error: any) {
-    console.error("Error in GET /api/db:", error.message, error.stack);
+  } catch (error: unknown) {
+    console.error("Error in GET /api/db:", (error as Error).message, (error as Error).stack);
     return NextResponse.json({ error: 'Failed to retrieve data' }, { status: 500 });
   }
 }
@@ -63,8 +45,8 @@ export async function POST(request: Request) {
     } else {
       return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
-  } catch (error: any) {
-    console.error("Error in POST /api/db:", error.message, error.stack);
+  } catch (error: unknown) {
+    console.error("Error in POST /api/db:", (error as Error).message, (error as Error).stack);
     return NextResponse.json({ error: 'Failed to update data' }, { status: 500 });
   }
 }
@@ -132,8 +114,8 @@ export async function PUT(request: Request) {
     console.log(`[db API - PUT] Updated DB with local cover for "${title}": ${localCoverPath}`);
     return NextResponse.json({ coverImage: localCoverPath }, { status: 200 });
 
-  } catch (error: any) {
-    console.error("Error in PUT /api/db (saving cover):", error.message, error.stack);
+  } catch (error: unknown) {
+    console.error("Error in PUT /api/db (saving cover):", (error as Error).message, (error as Error).stack);
     return NextResponse.json({ error: 'Internal server error during cover saving.' }, { status: 500 });
   }
 }

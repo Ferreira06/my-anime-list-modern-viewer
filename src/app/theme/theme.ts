@@ -1,6 +1,6 @@
 // app/theme/theme.ts
 import { PaletteMode } from '@mui/material';
-import { amber, deepOrange, grey } from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 import { Property } from 'csstype'; // Import the Property type
 
 export const getDesignTokens = (mode: PaletteMode) => ({

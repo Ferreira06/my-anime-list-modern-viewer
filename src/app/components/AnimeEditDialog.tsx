@@ -54,7 +54,7 @@ export default function AnimeEditDialog({ anime, open, onClose, onSave, onDelete
 
   if (!anime) return null;
 
-  const handleInputChange = (field: keyof AnimeUpdateData, value: any) => {
+  const handleInputChange = (field: keyof AnimeUpdateData, value: string | number) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 

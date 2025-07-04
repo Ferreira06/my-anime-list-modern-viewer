@@ -23,9 +23,9 @@ export async function getDb(): Promise<Low<MyDB>> {
 
   try {
     await fs.mkdir(dbDir, { recursive: true });
-  } catch (error: any) {
-    console.error(`Critical: Failed to create database directory: ${dbDir}`, error.message);
-    throw new Error(`Critical: Failed to create database directory: ${error.message}`);
+  } catch (error: unknown) {
+    console.error(`Critical: Failed to create database directory: ${dbDir}`, (error as Error).message);
+    throw new Error(`Critical: Failed to create database directory: ${(error as Error).message}`);
   }
 
   const adapter = new JSONFile<MyDB>(dbFilePath);
@@ -44,9 +44,9 @@ export async function getDb(): Promise<Low<MyDB>> {
     } else {
       console.log('LowDB: Database loaded successfully.');
     }
-  } catch (error: any) {
-    console.error(`LowDB: A critical error occurred during database initialization:`, error.message);
-    throw new Error(`Fatal DB error: Could not initialize LowDB. ${error.message}`);
+  } catch (error: unknown) {
+    console.error(`LowDB: A critical error occurred during database initialization:`, (error as Error).message);
+    throw new Error(`Fatal DB error: Could not initialize LowDB. ${(error as Error).message}`);
   }
 
   dbInstance = db;

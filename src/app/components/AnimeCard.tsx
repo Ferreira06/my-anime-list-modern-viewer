@@ -68,7 +68,7 @@ export default function AnimeCard({ anime, rank, isDragDisabled, onDelete, onRan
   useEffect(() => { setRankInputValue(String(rank)); }, [rank]);
   useEffect(() => { setEpisodeInputValue(String(anime.watchedEpisodes)); }, [anime.watchedEpisodes]);
 
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: anime.id, disabled: isDragDisabled || isEditingRank || isEditingEpisodes });
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useSortable({ id: anime.id, disabled: isDragDisabled || isEditingRank || isEditingEpisodes });
 
   const style = {
     transform: CSS.Transform.toString(transform),

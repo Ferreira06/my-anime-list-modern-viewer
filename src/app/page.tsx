@@ -121,8 +121,8 @@ export default function Home() {
       setMasterAnimeList(prevList => [result, ...prevList]);
       setNewAnimeTitle('');
       fetch('/api/db', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: result.title, id: result.id }), });
-    } catch (error: any) {
-      showSnackbar(`Error: ${error.message}`, 'error');
+    } catch (error: unknown) {
+      showSnackbar(`Error: ${(error as Error).message}`, 'error');
     } finally {
       setIsAdding(false);
     }
@@ -136,7 +136,7 @@ export default function Home() {
   const isCustomSortActive = useMemo(() => customAnimeOrders.hasOwnProperty(sortBy), [sortBy, customAnimeOrders]);
 
   const displayedAnimeList = useMemo(() => {
-    let filteredList = masterAnimeList
+    const filteredList = masterAnimeList
       .filter(anime => (filterStatus === 'All' || anime.status === filterStatus) && anime.title.toLowerCase().includes(searchTerm.toLowerCase()))
       .map(anime => ({ ...anime, score: Number(anime.score) }));
 
@@ -225,8 +225,8 @@ export default function Home() {
         const errorResult = await response.json();
         throw new Error(errorResult.error || 'Failed to update episode count.');
       }
-    } catch (error: any) {
-      showSnackbar(`Error: ${error.message}`, 'error');
+    } catch (error: unknown) {
+      showSnackbar(`Error: ${(error as Error).message}`, 'error');
       console.error("Failed to update episode count on server.");
     }
   };
@@ -249,8 +249,8 @@ export default function Home() {
           return newOrders;
       });
       showSnackbar(result.message, 'success');
-    } catch (error: any) {
-      showSnackbar(`Error: ${error.message}`, 'error');
+    } catch (error: unknown) {
+      showSnackbar(`Error: ${(error as Error).message}`, 'error');
     } finally {
       setDeleteDialogState({ ...deleteDialogState, open: false });
     }
@@ -272,8 +272,8 @@ export default function Home() {
       const updatedAnimeFromServer = await response.json();
       setMasterAnimeList(prevList => prevList.map(anime => (anime.id === id ? updatedAnimeFromServer : anime)));
       showSnackbar('Changes saved successfully!', 'success');
-    } catch (error: any) {
-      showSnackbar(`Error: ${error.message}`, 'error');
+    } catch (error: unknown) {
+      showSnackbar(`Error: ${(error as Error).message}`, 'error');
     }
   };
 
@@ -301,8 +301,8 @@ export default function Home() {
         }
         showSnackbar(result.message, 'success');
         await fetchInitialData();
-      } catch (error: any) {
-        showSnackbar(`Error: ${error.message}`, 'error');
+      } catch (error: unknown) {
+        showSnackbar(`Error: ${(error as Error).message}`, 'error');
       } finally {
         setIsImporting(false);
       }

@@ -57,8 +57,8 @@ export async function POST(request: Request) {
     // 5. Return the newly created anime object
     return NextResponse.json(newAnime, { status: 201 }); // 201 Created
 
-  } catch (error: any) {
-    console.error('[API /anime POST] An error occurred:', error.message);
+  } catch (error: unknown) {
+    console.error('[API /anime POST] An error occurred:', (error as Error).message);
     return NextResponse.json({ error: 'An internal server error occurred.' }, { status: 500 });
   }
 }
@@ -102,8 +102,8 @@ export async function DELETE(request: Request) {
 
     return NextResponse.json({ message: `Successfully deleted "${animeToDelete.title}"` }, { status: 200 });
 
-  } catch (error: any) {
-    console.error('[API /anime DELETE] An error occurred:', error.message);
+  } catch (error: unknown) {
+    console.error('[API /anime DELETE] An error occurred:', (error as Error).message);
     return NextResponse.json({ error: 'An internal server error occurred.' }, { status: 500 });
   }
 }
@@ -159,8 +159,8 @@ export async function PATCH(request: Request) {
 
     return NextResponse.json(updatedAnime, { status: 200 });
 
-  } catch (error: any) {
-    console.error('[API /anime PATCH] An error occurred:', error.message);
+  } catch (error: unknown) {
+    console.error('[API /anime PATCH] An error occurred:', (error as Error).message);
     return NextResponse.json({ error: 'An internal server error occurred.' }, { status: 500 });
   }
 }

@@ -318,8 +318,8 @@ export default function Home() {
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box>
-            <Typography variant="h4" component="h1" fontWeight="700">Anime Tracker</Typography>
-            <Typography variant="subtitle1" color="text.secondary">Your personal list, beautifully organized.</Typography>
+            <Typography variant="h4" component="h1" fontWeight="700">My Anime List</Typography>
+            <Typography variant="subtitle1" color="text.secondary">Your personal list, better than original.</Typography>
         </Box>
         <Tooltip title="Toggle light/dark theme" arrow>
              <IconButton onClick={toggleColorMode} color="primary">
